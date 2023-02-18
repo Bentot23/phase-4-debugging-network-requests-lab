@@ -63,11 +63,32 @@ developing your own process.
 - Add a new toy when the toy form is submitted
 
   - How I debugged:
+      - I clicked first the Create New Toy button to see what error it will return.
+      - It returned an error message that looks like this:
+
+        ```POST http://localhost:4000/toys 500 (Internal Server Error)```
+      - From the error message, it will tell you that the error is in the server, so i checked the rail server log to look for the last request came through and it will show you that error is in the controller action 'create'.
+      - By checking the create action, there's a typo in Toys.create. It has to be Toy.create.
 
 - Update the number of likes for a toy
 
   - How I debugged:
+      - I clicked the Like button to see what error it will return.
+      - It did return an error message that looks like this:
+
+        ``` SyntaxError: Unexpected end of JSON input at ToyCard.js:21:1 ``` 
+      - Knowing that the error is json input, i checked the update action in the controller if it's rendering json and then update the code.
 
 - Donate a toy to Goodwill (and delete it from our database)
 
   - How I debugged:
+    - I click delete or donate button to see what error it will return.
+    - It returned an error message that looks like this:
+
+        ```DELETE http://localhost:4000/toys/9 404 (Not Found)```
+
+    - I then checked the server log and saw an error message that looks like this:
+
+        ```ActionController::RoutingError (No route matches [DELETE] "/toys/9"):```
+
+    - It shows that it doesn't have a delete route so i just added a :destroy route in routes.rb.
